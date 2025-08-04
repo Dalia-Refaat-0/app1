@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "🔍 Running Laravel tests before push..."
+
+php artisan test
+
+if [ $? -ne 0 ]; then
+  echo "❌ Push rejected. Tests failed. Please fix them before pushing."
+  exit 1
+else
+  echo "✅ Tests passed. Proceeding with push."
+fi
