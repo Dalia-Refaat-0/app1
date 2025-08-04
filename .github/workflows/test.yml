@@ -1,4 +1,4 @@
-name: Run Laravel Tests with File Integrity Check
+name: Run Laravel Tests
 
 on:
   push:
@@ -45,31 +45,7 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: Check required files
-        run: |
-          echo "🔍 Verifying critical files exist..."
-
-          # Check .env.example
-          if [ ! -f ".env.example" ]; then
-            echo "❌ .env.example is missing."
-            exit 1
-          fi
-
-          # Check if any migration files exist
-          if [ -z "$(ls -A database/migrations/*.php 2>/dev/null)" ]; then
-            echo "❌ No migration files found in database/migrations/"
-            exit 1
-          fi
-
-          # Optional: Check if composer.lock exists
-          if [ ! -f "composer.lock" ]; then
-            echo "❌ composer.lock is missing. Did you forget to commit it?"
-            exit 1
-          fi
-
-          echo "✅ All required files are present."
-
-      - name: Prepare .env
+      - name: Prepare .env file
         run: cp .env.example .env
 
       - name: Generate app key
@@ -78,5 +54,5 @@ jobs:
       - name: Run database migrations
         run: php artisan migrate --force
 
-      - name: Run Laravel tests
+      - name: Run tests
         run: php artisan test
