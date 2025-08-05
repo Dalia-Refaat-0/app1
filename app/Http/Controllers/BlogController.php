@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 class BlogController extends Controller
 {
+    
     public function index()
     {
         return response()->json(Blog::all());
