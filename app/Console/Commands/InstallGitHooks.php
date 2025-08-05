@@ -15,19 +15,19 @@ class InstallGitHooks extends Command
         $destination = base_path('.git/hooks/pre-push');
 
         if (!file_exists($source)) {
-            $this->error("❌ pre-push hook not found in scripts/hooks");
+            $this->error("pre-push hook not found in scripts/hooks");
             return self::FAILURE;
         }
 
         if (!is_dir(base_path('.git/hooks'))) {
-            $this->error("❌ .git/hooks directory does not exist");
+            $this->error(".git/hooks directory does not exist");
             return self::FAILURE;
         }
 
         copy($source, $destination);
         chmod($destination, 0755);
 
-        $this->info("✅ pre-push hook installed successfully.");
+        $this->info("pre-push hook installed successfully.");
         return self::SUCCESS;
     }
 }
